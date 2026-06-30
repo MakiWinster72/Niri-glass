@@ -77,12 +77,41 @@ window-rule {
             adaptive-dim 0.2
             adaptive-boost 0.2
             physical-refraction 0
-            lens distortion
+            lens distortion 0
+            fringing 0
             
         }
     }
 }
 ```
+### Parameters for a frosted glass look
+
+```kdl
+saturation 0.9
+vibrancy 0.2
+adaptive-dim 0.25
+adaptive-boost 0.25
+```
+
+<img width="462" height="276" alt="Screenshot from 2026-06-30 13-40-40" src="https://github.com/user-attachments/assets/ef2949f8-c8b7-4805-a2b5-7aaa87507525" />
+
+With all parameters set to 0 (except saturation, which is set to 1):
+
+<img width="462" height="276" alt="Screenshot from 2026-06-30 13-37-39" src="https://github.com/user-attachments/assets/991553ad-66d0-4a62-8519-8ce3b04bdcc0" /> ```
+
+### others
+- fringing:
+  this make rgb colors appear
+  
+  <img width="243" height="63" alt="Screenshot from 2026-06-30 16-13-20" src="https://github.com/user-attachments/assets/56d589e5-ffa1-46e9-a58a-996d015070e9" />
+
+- edge-lightning
+  
+  this make the wallpapers colors blend with the edges
+  
+<img width="533" height="320" alt="Screenshot from 2026-06-30 16-18-04" src="https://github.com/user-attachments/assets/91d4b152-8bec-47dc-b4dd-6f10a30a441d" />
+
+<img width="531" height="329" alt="Screenshot from 2026-06-30 16-17-54" src="https://github.com/user-attachments/assets/c4ba4a55-a3cd-49b5-ae15-fdf9154650c4" />
 
 
 ## Warnings 
