@@ -40,6 +40,7 @@ pub struct FramebufferEffectElement {
     noise: f32,
     saturation: f32,
     liquid_glass: Option<LiquidGlassOptions>,
+    padding_pixels: f32,
 }
 
 #[derive(Debug)]
@@ -71,6 +72,7 @@ impl FramebufferEffect {
         noise: f32,
         saturation: f32,
         liquid_glass: Option<LiquidGlassOptions>,
+        padding_pixels: f32,
     ) -> FramebufferEffectElement {
         let (clip_geo, corner_radius) = params
             .clip
@@ -93,6 +95,7 @@ impl FramebufferEffect {
             noise,
             saturation,
             liquid_glass,
+            padding_pixels,
         }
     }
 }
@@ -128,6 +131,7 @@ impl FramebufferEffectElement {
             Uniform::new("noise", self.noise),
             Uniform::new("saturation", self.saturation),
             Uniform::new("bg_color", [0f32, 0., 0., 0.]),
+            Uniform::new("lg_padding_pixels", self.padding_pixels),
         ];
 
         if let Some(lg) = &self.liquid_glass {
@@ -139,10 +143,25 @@ impl FramebufferEffectElement {
                 Uniform::new("lg_refraction_c", lg.refraction_c as f32),
                 Uniform::new("lg_refraction_d", lg.refraction_d as f32),
                 Uniform::new("lg_refraction_power", lg.refraction_power as f32),
+                Uniform::new("lg_physical_refraction", lg.physical_refraction as f32),
                 Uniform::new("lg_glow_weight", lg.glow_weight as f32),
                 Uniform::new("lg_glow_bias", lg.glow_bias as f32),
                 Uniform::new("lg_glow_edge0", lg.glow_edge0 as f32),
                 Uniform::new("lg_glow_edge1", lg.glow_edge1 as f32),
+                Uniform::new("lg_edge_lighting", lg.edge_lighting as f32),
+                Uniform::new("lg_fringing", lg.fringing as f32),
+                Uniform::new("lg_refraction_dilute", lg.refraction_dilute as f32),
+                Uniform::new("lg_dilute_strength", lg.dilute_strength as f32),
+                Uniform::new("lg_dilute_fringing", lg.dilute_fringing as f32),
+                Uniform::new("lg_physical_refraction", lg.physical_refraction as f32),
+                Uniform::new("lg_lens_distortion", lg.lens_distortion as f32),
+                Uniform::new("lg_brightness", lg.brightness as f32),
+                Uniform::new("lg_contrast", lg.contrast as f32),
+                Uniform::new("lg_saturation", lg.saturation as f32),
+                Uniform::new("lg_vibrancy", lg.vibrancy as f32),
+                Uniform::new("lg_adaptive_dim", lg.adaptive_dim as f32),
+                Uniform::new("lg_adaptive_boost", lg.adaptive_boost as f32),
+                Uniform::new("lg_edge_thickness", lg.edge_thickness as f32),
             ]);
         } else {
             uniforms.extend([
@@ -153,10 +172,25 @@ impl FramebufferEffectElement {
                 Uniform::new("lg_refraction_c", 0.0f32),
                 Uniform::new("lg_refraction_d", 0.0f32),
                 Uniform::new("lg_refraction_power", 0.0f32),
+                Uniform::new("lg_physical_refraction", 0.0f32),
                 Uniform::new("lg_glow_weight", 0.0f32),
                 Uniform::new("lg_glow_bias", 0.0f32),
                 Uniform::new("lg_glow_edge0", 0.0f32),
                 Uniform::new("lg_glow_edge1", 0.0f32),
+                Uniform::new("lg_edge_lighting", 0.0f32),
+                Uniform::new("lg_fringing", 0.0f32),
+                Uniform::new("lg_refraction_dilute", 0.0f32),
+                Uniform::new("lg_dilute_strength", 0.0f32),
+                Uniform::new("lg_dilute_fringing", 0.0f32),
+                Uniform::new("lg_physical_refraction", 0.0f32),
+                Uniform::new("lg_lens_distortion", 0.0f32),
+                Uniform::new("lg_brightness", 0.0f32),
+                Uniform::new("lg_contrast", 0.0f32),
+                Uniform::new("lg_saturation", 0.0f32),
+                Uniform::new("lg_vibrancy", 0.0f32),
+                Uniform::new("lg_adaptive_dim", 0.0f32),
+                Uniform::new("lg_adaptive_boost", 0.0f32),
+                Uniform::new("lg_edge_thickness", 0.15f32),
             ]);
         }
 

@@ -1068,6 +1068,21 @@ pub struct LiquidGlass {
     pub glow_bias: f64,
     pub glow_edge0: f64,
     pub glow_edge1: f64,
+    pub edge_lighting: f64,
+    pub fringing: f64,
+    pub refraction_dilute: f64,
+    pub dilute_strength: f64,
+    pub dilute_fringing: f64,
+    pub physical_refraction: f64,
+    pub lens_distortion: f64,
+    pub brightness: f64,
+    pub contrast: f64,
+    pub saturation: f64,
+    pub vibrancy: f64,
+    pub adaptive_dim: f64,
+    pub adaptive_boost: f64,
+    pub edge_thickness: f64,
+    pub edge_padding: f64,
 }
 
 impl Default for LiquidGlass {
@@ -1084,6 +1099,21 @@ impl Default for LiquidGlass {
             glow_bias: 0.0,
             glow_edge0: 0.3,
             glow_edge1: 0.9,
+            edge_lighting: 1.0,
+            fringing: 0.3,
+            refraction_dilute: 0.0,
+            dilute_strength: 0.0,
+            dilute_fringing: 0.0,
+            physical_refraction: 0.0,
+            lens_distortion: 0.5,
+            brightness: 1.0,
+            contrast: 1.0,
+            saturation: 0.85,
+            vibrancy: 0.12,
+            adaptive_dim: 0.0,
+            adaptive_boost: 0.0,
+            edge_thickness: 0.15,
+            edge_padding: 0.0,
         }
     }
 }
@@ -1112,6 +1142,36 @@ pub struct LiquidGlassPart {
     pub glow_edge0: Option<FloatOrInt<-100, 100>>,
     #[knuffel(child, unwrap(argument))]
     pub glow_edge1: Option<FloatOrInt<-100, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub edge_lighting: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub fringing: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub refraction_dilute: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub dilute_strength: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub dilute_fringing: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub physical_refraction: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub lens_distortion: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub brightness: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub contrast: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub saturation: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub vibrancy: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub adaptive_dim: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub adaptive_boost: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub edge_thickness: Option<FloatOrInt<0, 100>>,
+    #[knuffel(child, unwrap(argument))]
+    pub edge_padding: Option<FloatOrInt<0, 100>>,
 }
 
 impl MergeWith<LiquidGlassPart> for LiquidGlass {
@@ -1129,6 +1189,21 @@ impl MergeWith<LiquidGlassPart> for LiquidGlass {
             glow_bias,
             glow_edge0,
             glow_edge1,
+            edge_lighting,
+            fringing,
+            refraction_dilute,
+            dilute_strength,
+            dilute_fringing,
+            physical_refraction,
+            lens_distortion,
+            brightness,
+            contrast,
+            saturation,
+            vibrancy,
+            adaptive_dim,
+            adaptive_boost,
+            edge_thickness,
+            edge_padding,
         );
     }
 }
