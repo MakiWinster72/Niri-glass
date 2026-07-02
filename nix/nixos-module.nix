@@ -8,7 +8,12 @@
 #   imports = [ inputs.niri-glass.nixosModules.default ];
 #   programs.niri-glass.enable = true;
 self:
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.programs.niri-glass;
   system = pkgs.stdenv.hostPlatform.system;

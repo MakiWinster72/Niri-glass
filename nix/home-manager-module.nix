@@ -10,7 +10,12 @@
 #     config = builtins.readFile ./niri/config.kdl;  # optional
 #   };
 self:
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.programs.niri-glass;
   system = pkgs.stdenv.hostPlatform.system;
@@ -42,9 +47,10 @@ in
     home.packages = [ cfg.package ];
 
     xdg.configFile."niri/config.kdl" = lib.mkIf (cfg.config != null) (
-      if builtins.isPath cfg.config || lib.isStorePath cfg.config
-      then { source = cfg.config; }
-      else { text = cfg.config; }
+      if builtins.isPath cfg.config || lib.isStorePath cfg.config then
+        { source = cfg.config; }
+      else
+        { text = cfg.config; }
     );
   };
 }

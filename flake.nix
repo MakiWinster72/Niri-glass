@@ -16,11 +16,18 @@
   };
 
   outputs =
-    { self, nixpkgs, niri }:
+    {
+      self,
+      nixpkgs,
+      niri,
+    }:
     let
       inherit (nixpkgs) lib;
 
-      systems = [ "x86_64-linux" "aarch64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       forAllSystems = lib.genAttrs systems;
       pkgsFor = forAllSystems (system: nixpkgs.legacyPackages.${system});
 
@@ -28,7 +35,8 @@
       # The overlay touches no Cargo.toml / Cargo.lock, so the vendored
       # dependency set (and its hash) is identical to upstream niri — only the
       # `niri` crate itself recompiles.
-      applyGlass = name: base:
+      applyGlass =
+        name: base:
         base.overrideAttrs (old: {
           pname = name;
           postPatch = (old.postPatch or "") + ''
@@ -59,8 +67,12 @@
       packages = forAllSystems packagesFor;
 
       # `nix run` / `nix run .#niri-session`
-      apps = forAllSystems (system:
-        let pkgs = (packagesFor system).niri-glass; in {
+      apps = forAllSystems (
+        system:
+        let
+          pkgs = (packagesFor system).niri-glass;
+        in
+        {
           default = {
             type = "app";
             program = "${pkgs}/bin/niri";
@@ -71,13 +83,15 @@
             program = "${pkgs}/bin/niri-session";
             meta.description = "Run niri-glass as a systemd user session";
           };
-        });
+        }
+      );
 
       # `nix develop` — full niri build environment for hacking on the overlay.
       # NOTE: this repo only contains overlay files (no Cargo.toml). To build,
       # apply the overlay onto a checkout of niri @ 49fc611 (see ./install.sh)
       # and run `cargo build --release` from there inside this shell.
-      devShells = forAllSystems (system:
+      devShells = forAllSystems (
+        system:
         let
           pkgs = pkgsFor.${system};
           niriGlass = (packagesFor system).niri-glass;
@@ -104,11 +118,11 @@
               echo "This repo is an overlay; build against a niri @ 49fc611 checkout."
             '';
           };
-        });
+        }
+      );
 
       overlays.default = final: _prev: {
-        niri-glass = applyGlass "niri-glass"
-          (niri.packages.${final.stdenv.hostPlatform.system}.niri);
+        niri-glass = applyGlass "niri-glass" (niri.packages.${final.stdenv.hostPlatform.system}.niri);
       };
 
       nixosModules.default = import ./nix/nixos-module.nix self;
