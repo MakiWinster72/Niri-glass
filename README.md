@@ -42,6 +42,56 @@
 
 ## How to Apply
 
+### Nix / NixOS (flake)
+
+This repo ships a flake that builds niri with the liquid-glass overlay applied
+on top of the matching upstream niri release (pinned to rev `49fc611`, niri
+26.04). No manual file copying or `install.sh` needed.
+
+Quick try-out (no install):
+
+```bash
+nix run github:zaroutt/Niri-glass          # run the compositor
+nix shell github:zaroutt/Niri-glass        # drop niri-glass into a shell
+nix develop github:zaroutt/Niri-glass      # dev shell (rust + niri build deps)
+nix build  github:zaroutt/Niri-glass       # build, result at ./result
+```
+
+NixOS (flake), reusing the upstream niri session/portal/polkit wiring:
+
+```nix
+{
+  inputs.niri-glass.url = "github:zaroutt/Niri-glass";
+
+  # in your nixosConfiguration modules:
+  imports = [ inputs.niri-glass.nixosModules.default ];
+  programs.niri-glass.enable = true;
+}
+```
+
+home-manager:
+
+```nix
+{
+  imports = [ inputs.niri-glass.homeManagerModules.default ];
+  programs.niri-glass = {
+    enable = true;
+    # optional: manage ~/.config/niri/config.kdl
+    config = builtins.readFile ./niri/config.kdl;
+  };
+}
+```
+
+Or just add the package via the overlay (`overlays.default` exposes
+`pkgs.niri-glass`) or reference `inputs.niri-glass.packages.<system>.niri-glass`
+directly anywhere a package is expected (e.g. `programs.niri.package`).
+
+> The flake is pinned to the exact niri revision these overlay files were
+> written against. If you bump the `niri` input, refresh the overlay files to
+> match or the build may fail to compile.
+
+### install.sh (non-Nix)
+
 Clone the repo and run the install script:
 ```bash
 git clone https://github.com/zaroutt/Niri-glass
