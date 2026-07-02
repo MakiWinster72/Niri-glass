@@ -53,7 +53,7 @@
           '';
           meta = (old.meta or { }) // {
             description = "niri with a liquid-glass / refraction background effect";
-            homepage = "https://github.com/MaySeikatsu/Niri-glass";
+            homepage = "https://github.com/zaroutt/Niri-glass";
           };
         });
 

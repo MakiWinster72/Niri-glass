@@ -51,17 +51,17 @@ on top of the matching upstream niri release (pinned to rev `49fc611`, niri
 Quick try-out (no install):
 
 ```bash
-nix run github:MaySeikatsu/Niri-glass          # run the compositor
-nix shell github:MaySeikatsu/Niri-glass        # drop niri-glass into a shell
-nix develop github:MaySeikatsu/Niri-glass      # dev shell (rust + niri build deps)
-nix build  github:MaySeikatsu/Niri-glass       # build, result at ./result
+nix run github:zaroutt/Niri-glass          # run the compositor
+nix shell github:zaroutt/Niri-glass        # drop niri-glass into a shell
+nix develop github:zaroutt/Niri-glass      # dev shell (rust + niri build deps)
+nix build  github:zaroutt/Niri-glass       # build, result at ./result
 ```
 
 NixOS (flake), reusing the upstream niri session/portal/polkit wiring:
 
 ```nix
 {
-  inputs.niri-glass.url = "github:MaySeikatsu/Niri-glass";
+  inputs.niri-glass.url = "github:zaroutt/Niri-glass";
 
   # in your nixosConfiguration modules:
   imports = [ inputs.niri-glass.nixosModules.default ];
