@@ -132,7 +132,7 @@ window-rule {
             adaptive-dim 0.2
             adaptive-boost 0.2
             physical-refraction 0
-            lens distortion 0
+            lens-distortion 0
             fringing 0
             
         }
