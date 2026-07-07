@@ -4,9 +4,9 @@ set -e
 NIRI_SRC="${1:-$HOME/niri}"
 
 if [ ! -d "$NIRI_SRC" ]; then
-    echo "Error: niri source directory not found at $NIRI_SRC"
-    echo "Usage: ./install.sh [path-to-niri-src]"
-    exit 1
+  echo "Error: niri source directory not found at $NIRI_SRC"
+  echo "Usage: ./install.sh [path-to-niri-src]"
+  exit 1
 fi
 
 echo "Copying files to $NIRI_SRC..."
@@ -25,11 +25,25 @@ cd "$NIRI_SRC" && cargo build --release
 echo "Installing niri binary..."
 sudo cp "$NIRI_SRC/target/release/niri" /usr/local/bin/niri-glass
 
+echo "Registering Wayland session entry..."
+sudo tee /usr/share/wayland-sessions/niri-glass.desktop >/dev/null <<'EOF'
+[Desktop Entry]
+Name=Niri (Liquid Glass)
+Comment=Niri with liquid-glass background effect
+Exec=/usr/local/bin/niri-glass --session
+Type=WaylandSession
+DesktopNames=niri
+EOF
+
 cat <<'EOF'
 
 Done! Pick which binary to launch at session start:
 
   exec /usr/local/bin/niri-glass --session   # liquid_glass version
-  exec /usr/bin/niri --session               # pacman version
+  exec /usr/bin/niri --session               # pacman version  
+
+Also, made a option for your login manager:
+  /usr/share/wayland-sessions/niri-glass.desktop
+if you dont need it, just delete
 
 EOF
