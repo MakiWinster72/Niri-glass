@@ -23,6 +23,13 @@ echo "Building niri..."
 cd "$NIRI_SRC" && cargo build --release
 
 echo "Installing niri binary..."
-sudo cp "$NIRI_SRC/target/release/niri" /usr/bin/niri
+sudo cp "$NIRI_SRC/target/release/niri" /usr/local/bin/niri-glass
 
-echo "Done! Restart niri to apply."
+cat <<'EOF'
+
+Done! Pick which binary to launch at session start:
+
+  exec /usr/local/bin/niri-glass --session   # liquid_glass version
+  exec /usr/bin/niri --session               # pacman version
+
+EOF
