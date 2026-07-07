@@ -1,4 +1,7 @@
 # Liquid Glass Effect for Niri
+
+**[English](README.md)** | **[中文](README.zh-CN.md)**
+
 ## Examples
 
 1.
